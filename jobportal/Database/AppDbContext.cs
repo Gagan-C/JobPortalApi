@@ -18,7 +18,6 @@ namespace jobportal.Database
         public DbSet<Jobpost> Jobposts { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<Application> Application { get; set; }
-        public DbSet<AppUser> AppUser { get; set; }
         public DbSet<User> User { get; set; }
 
 

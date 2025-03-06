@@ -4,6 +4,6 @@ namespace jobportal.Database
 {
     public interface IOnboardingService
     {
-        public int OnboardEmployer(EmployerOnboardingDTO employerOnboardingDTO);
+        public Task<int> OnboardEmployerAsync(EmployerOnboardingDTO employerOnboardingDTO);
     }
 }

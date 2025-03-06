@@ -9,7 +9,7 @@ namespace jobportal.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
-        public AppUser? AppUser{ get; set; }
+        public User? AppUser{ get; set; }
         [Required]
         public Company? Company { get; set; }
 

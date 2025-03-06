@@ -17,9 +17,9 @@ namespace jobportal.Controllers
         [HttpPost]
         [Authorize]
         [Route("/api/[controller]/Employer")]
-        public IActionResult OnboardEmployer([FromBody] EmployerOnboardingDTO employerOnboardingDTO)
+        public async Task<IActionResult> OnboardEmployerAsync([FromBody] EmployerOnboardingDTO employerOnboardingDTO)
         {
-            var result = _onboardingService.OnboardEmployer(employerOnboardingDTO);
+            var result = await _onboardingService.OnboardEmployerAsync(employerOnboardingDTO);
 
             if (result > 0)
             {

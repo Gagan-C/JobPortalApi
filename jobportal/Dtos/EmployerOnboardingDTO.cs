@@ -14,5 +14,8 @@ namespace jobportal.Dtos
         public string? CompanyName { get; set; }
         [Required]
         public string? CompanyAddress{ get; set; }
-}
+        [Required]
+        [DataType(DataType.Password)]
+        public string? Password  { get; set; }
+    }
 }

@@ -10,7 +10,7 @@ namespace jobportal.Database
         public AppDbContext(DbContextOptions<AppDbContext> options):
             base(options)
         {
-            
+            Database.Migrate();
             
         }
         public DbSet<Employee> Employee { get; set; }
@@ -19,7 +19,6 @@ namespace jobportal.Database
         public DbSet<Company> Company { get; set; }
         public DbSet<Application> Application { get; set; }
         public DbSet<User> User { get; set; }
-
 
     }
 

@@ -26,12 +26,15 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddIdentityCore<User>()
     .AddEntityFrameworkStores<AppDbContext>().AddApiEndpoints();
 
+builder.AddServiceDefaults();
 //Database context
+builder.AddSqlServerDbContext<AppDbContext>("jobdb");
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseSqlServer(connectionString: builder.Configuration.GetConnectionString("ApplicationDB"));
-});
+
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//{
+//    options.UseSqlServer(connectionString: builder.Configuration.GetConnectionString("ApplicationDB"));
+//});
 
 
 builder.Services.AddEndpointsApiExplorer();

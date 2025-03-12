@@ -8,8 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(options =>
 {
@@ -22,13 +20,17 @@ builder.Services.AddAuthentication(options =>
 })
 .AddBearerToken(IdentityConstants.BearerScheme);
 
-builder.Services.AddIdentityCore<User>()
-    .AddEntityFrameworkStores<AppDbContext>().AddApiEndpoints();
+
+//Service defaults for Aspire
 
 builder.AddServiceDefaults();
 
 //Database context
 builder.AddSqlServerDbContext<AppDbContext>("jobdb");
+
+builder.Services.AddControllers();
+builder.Services.AddIdentityCore<User>()
+    .AddEntityFrameworkStores<AppDbContext>().AddApiEndpoints();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -46,8 +48,6 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IOnboardingService, OnboardingService>();
 builder.Services.AddScoped<IPostService, PostService>();
-
-
 
 
 var app = builder.Build();

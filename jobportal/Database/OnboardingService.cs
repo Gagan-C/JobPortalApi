@@ -26,14 +26,15 @@ namespace jobportal.Database
                 
                 if(existingUser == null)
                 {
-                    var userCreation=await _userManager.CreateAsync(new User()
-                    {
+                    PasswordHasher<User>   passwordHasher = new PasswordHasher<User>();
+                    User newUser1 = new User() { 
                         FirstName = employerOnboardingDTO.EmployerFirstName,
                         LastName = employerOnboardingDTO.EmployerLastName,
                         Email = employerOnboardingDTO.EmployerEmail,
-                        PasswordHash = employerOnboardingDTO.Password,
                         UserName=employerOnboardingDTO.EmployerEmail
-                    });
+                    };
+                    newUser1.PasswordHash=passwordHasher.HashPassword(newUser1,employerOnboardingDTO.Password);
+                    var userCreation=await _userManager.CreateAsync(newUser1);
                     if (userCreation.Succeeded)
                     {
                          var newUser=await _userManager.FindByEmailAsync(employerOnboardingDTO.EmployerEmail);

@@ -5,7 +5,7 @@ var database = builder.AddSqlServer("sqlDB")
     .WithLifetime(ContainerLifetime.Persistent);
 var db = database.AddDatabase("jobdb");
 
-var jobApi = builder.AddProject<Projects.jobportal>("jobapi")
+var jobApi = builder.AddProject<Projects.JobPost_API>("jobapi")
     .WithReference(db)
     .WaitFor(db);
 

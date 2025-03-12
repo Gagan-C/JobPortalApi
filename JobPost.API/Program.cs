@@ -1,9 +1,8 @@
 //using Authorization.Database;
 //using Authorization.Model;
-using jobportal.Database;
+using Jobpost.API.Database;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using jobportal.Model;
+using Jobpost.API.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,15 +26,9 @@ builder.Services.AddIdentityCore<User>()
     .AddEntityFrameworkStores<AppDbContext>().AddApiEndpoints();
 
 builder.AddServiceDefaults();
+
 //Database context
 builder.AddSqlServerDbContext<AppDbContext>("jobdb");
-
-
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//{
-//    options.UseSqlServer(connectionString: builder.Configuration.GetConnectionString("ApplicationDB"));
-//});
-
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

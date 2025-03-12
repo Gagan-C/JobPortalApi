@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
 
-namespace jobportal.Model
+namespace Jobpost.API.Model
 {
     public class User:IdentityUser
     {

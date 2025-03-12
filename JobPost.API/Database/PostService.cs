@@ -1,8 +1,8 @@
-﻿using jobportal.Dtos;
-using jobportal.Model;
+﻿using Jobpost.API.Dtos;
+using Jobpost.API.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace jobportal.Database
+namespace Jobpost.API.Database
 {
     public class PostService : IPostService
     {
@@ -38,7 +38,7 @@ namespace jobportal.Database
         {
             var employer = _appDbContext.Employers.Find(postJobDTO.EmployerId);
             if (employer == null) { return -1; }
-            Jobpost job = new Jobpost
+            Jobposting job = new Jobposting
             {
                 JobTile = postJobDTO.JobTitle,
                 JobDescription = postJobDTO.JobDescription,

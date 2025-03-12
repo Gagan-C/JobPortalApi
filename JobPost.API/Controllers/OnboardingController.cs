@@ -1,10 +1,10 @@
-﻿using jobportal.Database;
-using jobportal.Dtos;
+﻿using Jobpost.API.Database;
+using Jobpost.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-namespace jobportal.Controllers
+namespace Jobpost.API.Controllers
 {
     [Route("/api/[controller]")]
     public class OnboardingController: ControllerBase

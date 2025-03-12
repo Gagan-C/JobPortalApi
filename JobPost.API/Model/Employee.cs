@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace jobportal.Model
+namespace Jobpost.API.Model
 {
     public class Employee
     {

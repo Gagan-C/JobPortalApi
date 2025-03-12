@@ -1,9 +1,8 @@
-﻿using jobportal.Dtos;
-using jobportal.Model;
+﻿using Jobpost.API.Dtos;
+using Jobpost.API.Model;
 using Microsoft.AspNetCore.Identity;
-using System.Runtime.Intrinsics.X86;
 
-namespace jobportal.Database
+namespace Jobpost.API.Database
 {
     public class OnboardingService : IOnboardingService
     {

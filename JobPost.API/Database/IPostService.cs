@@ -1,6 +1,6 @@
-﻿using jobportal.Dtos;
+﻿using Jobpost.API.Dtos;
 
-namespace jobportal.Database
+namespace Jobpost.API.Database
 {
     public interface IPostService
     {

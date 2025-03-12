@@ -1,4 +1,4 @@
-﻿namespace jobportal.Dtos
+﻿namespace Jobpost.API.Dtos
 {
     public class PostResultDTO
     {

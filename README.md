@@ -37,9 +37,9 @@ The JobPost API is a .NET 9-based application designed to manage job postings. I
 
 ### Running the Application
 1. Build the project:
-```bash
-	dotnet run --project JobPost.AppHost
-```
+	```bash
+	   dotnet run --project JobPost.AppHost
+	```
 
 ### API Documentation
 The API documentation is available via Swagger. Once the application is running, navigate to `/swagger` to view the API documentation.

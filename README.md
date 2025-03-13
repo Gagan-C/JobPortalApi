@@ -1,5 +1,5 @@
 # JobPost API
-
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Gagan-C_JobPortalApi&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Gagan-C_JobPortalApi)
 ## Overview
 The JobPost API is a .NET 9-based application designed to manage job postings. It includes features such as user authentication, job post management, and onboarding services. The API leverages various .NET services and libraries to provide a robust and scalable solution.
 

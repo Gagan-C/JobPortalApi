@@ -21,7 +21,7 @@ The JobPost API is a .NET 9-based application designed to manage job postings. I
 1. Clone the repository:
 
 	```bash
-	   git clone https://github.com/your-repo/jobpost-api.git
+	   git clone https://github.com/Gagan-C/JobPortalApi.git
 	```
 2. Navigate to the project directory:
     ```bash

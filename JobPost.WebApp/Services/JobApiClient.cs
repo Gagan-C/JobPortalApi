@@ -7,11 +7,13 @@ public class JobApiClient
     {
         private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILogger<JobApiClient> _logger;
 
-        public JobApiClient(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
+        public JobApiClient(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, ILogger<JobApiClient> logger)
         {
             _httpClient = httpClient;
             _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
 
         public async Task<HttpResponseMessage> PostLogin(Object obj)
@@ -21,7 +23,7 @@ public class JobApiClient
 
         public async Task<HttpResponseMessage> PostOnboardingEmployer(Object obj)
         {
-            Console.WriteLine(_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated);
+            _logger.LogDebug(_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated.ToString());
             return await _httpClient.PostAsJsonAsync("/api/Onboarding/Employer", obj);
         }
     }

@@ -8,35 +8,48 @@ namespace Jobpost.API.Database
     {
         private readonly AppDbContext _appDbContext;
         private readonly UserManager<User> _userManager;
-        public OnboardingService(AppDbContext appDbContext, UserManager<User> userManager)
+        private readonly ILogger<OnboardingService> _logger;
+        public OnboardingService(AppDbContext appDbContext, UserManager<User> userManager, ILogger<OnboardingService> logger)
         {
             _appDbContext = appDbContext;
             _userManager = userManager;
+            _logger = logger;
         }
+        
         public async Task<int> OnboardEmployerAsync(EmployerOnboardingDTO employerOnboardingDTO)
         {
             var existingCompany = _appDbContext.Company.FirstOrDefault(
                 u => u.CompanyName != null && u.CompanyName.Equals(employerOnboardingDTO.CompanyName) &&
                 u.CompanyAddress != null && u.CompanyAddress.Equals(employerOnboardingDTO.CompanyAddress));
-
-            if (employerOnboardingDTO.EmployerEmail!=null)
+            if (existingCompany != null)
             {
-                 var existingUser = await _userManager.FindByEmailAsync(employerOnboardingDTO.EmployerEmail);
+                _logger.LogDebug($"There is a existing company {existingCompany.CompanyName}");
+            }
+            else
+            {
+                _logger.LogDebug($"No existing company will be creating new company");
+            }
+            if (employerOnboardingDTO.EmployerEmail != null)
+            {
                 
-                if(existingUser == null)
+                var existingUser = await _userManager.FindByEmailAsync(employerOnboardingDTO.EmployerEmail);
+
+                if (existingUser == null)
                 {
-                    PasswordHasher<User>   passwordHasher = new PasswordHasher<User>();
-                    User newUser1 = new User() { 
+                    _logger.LogDebug("No existing user creating new user");
+                    PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+                    User newUser1 = new User()
+                    {
                         FirstName = employerOnboardingDTO.EmployerFirstName,
                         LastName = employerOnboardingDTO.EmployerLastName,
                         Email = employerOnboardingDTO.EmployerEmail,
-                        UserName=employerOnboardingDTO.EmployerEmail
+                        UserName = employerOnboardingDTO.EmployerEmail
                     };
-                    newUser1.PasswordHash=passwordHasher.HashPassword(newUser1,employerOnboardingDTO.Password);
-                    var userCreation=await _userManager.CreateAsync(newUser1);
+                    newUser1.PasswordHash = passwordHasher.HashPassword(newUser1, employerOnboardingDTO.Password);
+                    var userCreation = await _userManager.CreateAsync(newUser1);
                     if (userCreation.Succeeded)
                     {
-                         var newUser=await _userManager.FindByEmailAsync(employerOnboardingDTO.EmployerEmail);
+                        var newUser = await _userManager.FindByEmailAsync(employerOnboardingDTO.EmployerEmail);
                         if (newUser != null)
                         {
                             var employer = new Employer()
@@ -63,6 +76,7 @@ namespace Jobpost.API.Database
                 }
                 else
                 {
+                    _logger.LogDebug($"Existing user exist with the email {employerOnboardingDTO.EmployerEmail}");
                     var employer = new Employer()
                     {
                         AppUser = existingUser,

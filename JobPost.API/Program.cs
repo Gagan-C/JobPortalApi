@@ -25,6 +25,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.AddServiceDefaults();
 
+builder.AddRedisOutputCache("redis");
+
 //Database context
 builder.AddSqlServerDbContext<AppDbContext>("jobdb");
 
@@ -53,6 +55,8 @@ builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddServiceDiscovery(); 
 
 var app = builder.Build();
+
+app.UseOutputCache();
 
 app.MapDefaultEndpoints();
 

@@ -1,7 +1,6 @@
 ﻿using Jobpost.API.Database;
 using Jobpost.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jobpost.API.Controllers

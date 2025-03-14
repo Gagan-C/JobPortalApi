@@ -50,7 +50,11 @@ builder.Services.AddScoped<IOnboardingService, OnboardingService>();
 builder.Services.AddScoped<IPostService, PostService>();
 
 
+builder.Services.AddServiceDiscovery(); 
+
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 
 // Configure the HTTP request pipeline.

@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\JobPost.API\JobPost.API.csproj" />
     <ProjectReference Include="..\JobPost.ServiceDefaults\JobPost.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\JobPost.WebApp\JobPost.WebApp.csproj" />
   </ItemGroup>
 
 

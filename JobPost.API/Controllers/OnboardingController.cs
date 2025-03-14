@@ -10,15 +10,19 @@ namespace Jobpost.API.Controllers
     public class OnboardingController: ControllerBase
     {
         private readonly IOnboardingService _onboardingService;
-        public OnboardingController(IOnboardingService onboardingService)
+        private readonly ILogger<OnboardingController> _logger;
+        public OnboardingController(IOnboardingService onboardingService, ILogger<OnboardingController> logger)
         {
             _onboardingService = onboardingService;
+            _logger = logger;
         }
         [HttpPost]
         [Authorize]
         [Route("/api/[controller]/Employer")]
         public async Task<IActionResult> OnboardEmployerAsync([FromBody] EmployerOnboardingDTO employerOnboardingDTO)
         {
+            _logger.LogInformation($"Initiated onboarding for user:{employerOnboardingDTO.EmployerFirstName} {employerOnboardingDTO.EmployerLastName} Email: {employerOnboardingDTO.EmployerEmail}");
+
             var result = await _onboardingService.OnboardEmployerAsync(employerOnboardingDTO);
 
             if (result > 0)

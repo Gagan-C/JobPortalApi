@@ -3,44 +3,47 @@
 @using Microsoft.AspNetCore.Components.Forms
 @inject  JobApiClient jhttp
 
-<h3>Login</h3>
 <div class="container" id="login-container">
-    <EditForm Model="@loginModel" OnValidSubmit="@HandleValidSubmit" FormName="LoginForm">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+    <div class="card shadow rounded p-5">
+        <h2 class="text-center mb-4">Login</h2>
+        <EditForm Model="@loginModel" OnValidSubmit="@HandleValidSubmit" FormName="LoginForm">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-        <div class="form-group">
-            <label for="Email">Email</label>
-            <InputText id="Email" class="form-control m-1" @bind-Value="loginModel.Email" />
-        </div>
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email</label>
+                <InputText id="Email" class="form-control" @bind-Value="loginModel.Email" />
+            </div>
 
-        <div class="form-group">
-            <label for="Password">Password</label>
-            <InputText id="Password" type="password" class="form-control m-1" @bind-Value="loginModel.Password" />
-        </div>
+            <div class="mb-3">
+                <label for="Password" class="form-label">Password</label>
+                <InputText id="Password" type="password" class="form-control" @bind-Value="loginModel.Password" />
+            </div>
 
-        <button type="submit" class="btn btn-primary m-1">Login</button>
-    </EditForm>
-    @if (responseCode == "OK")
-    {
-        <div class="alert alert-success m-2" role="alert">
-            Logged in sucessfully
-        </div>
-    }
-
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </EditForm>
+        <JobPost.WebApp.Components.Shared.ErrorBannerForResponse responseCode="responseCode" />
+    </div>
 </div>
 
+<style>
+    #login-container {
+        display: flex;
+        justify-content: center;
+    }
+</style>
 @code {
     private LoginModel loginModel = new LoginModel();
-    private string responseCode = "";
+    private int responseCode ;
 
 
     private  async Task HandleValidSubmit()
     {
         var response = await jhttp.PostLogin(loginModel);
-        response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
-        responseCode = response.StatusCode.ToString();
+        responseCode = (int)response.StatusCode;
         Console.WriteLine(responseBody);
     }
 

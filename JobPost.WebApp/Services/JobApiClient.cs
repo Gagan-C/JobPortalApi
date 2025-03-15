@@ -3,7 +3,7 @@
 namespace JobPost.WebApp.Services
 {
     
-public class JobApiClient
+public class JobApiClient:IJobPostClient
     {
         private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -25,6 +25,12 @@ public class JobApiClient
         {
             _logger.LogDebug(_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated.ToString());
             return await _httpClient.PostAsJsonAsync("/api/Onboarding/Employer", obj);
+        }
+
+        public async Task<HttpResponseMessage> PostUserRegistration(object obj)
+        {
+            _logger.LogDebug("Calling user registration");
+            return await _httpClient.PostAsJsonAsync("/register",obj);
         }
     }
 }

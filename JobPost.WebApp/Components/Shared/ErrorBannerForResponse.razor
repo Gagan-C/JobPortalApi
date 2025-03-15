@@ -1,0 +1,38 @@
+﻿@if (responseCode>=500)
+{
+    <div class="alert alert-danger m-2" role="alert">
+        Somthing went wrong. please check logs for more information (server Internal Error 500+)
+    </div>
+}
+else if (responseCode >= 400)
+{
+    <div class="alert alert-danger m-2" role="alert">
+        Unauthorized or Not Found. Please try to login again.
+    </div>
+}
+else if (responseCode >= 300)
+{
+    <div class="alert alert-info m-2" role="alert">
+        Redirecting
+    </div>
+}
+else if (responseCode >=200)
+{
+    <div class="alert alert-success">
+        Operation was successful.
+    </div>
+}
+else if (responseCode == 0)
+{
+    //do nothing
+}
+else
+{
+    <div>
+        Somthing went wrong please check
+    </div>
+}
+@code {
+    [Parameter]
+    public int? responseCode { get; set; } 
+}

@@ -55,12 +55,12 @@
 <ErrorBannerForResponse responseCode=@responseCode />
 </div>
 @code {
-    OnboardingDTO onboardingEmployer = new OnboardingDTO();
+    private readonly OnboardingDTO onboardingEmployer = new OnboardingDTO();
     private int responseCode;
     public async Task HandleOnboardingPost()
     {
         var response= await Http.PostOnboardingEmployer(onboardingEmployer);
-        var responsebody =response.Content.ReadAsStream();
+        var responsebody = await response.Content.ReadAsStreamAsync();
         responseCode = (int)response.StatusCode;
         Console.WriteLine(responsebody);
     }

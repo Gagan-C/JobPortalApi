@@ -76,7 +76,7 @@ namespace Jobpost.API.Database
                 }
                 else
                 {
-                    _logger.LogDebug($"Existing user exist with the email {employerOnboardingDTO.EmployerEmail}");
+                    _logger.LogDebug("Existing user exist with the same email");
                     var employer = new Employer()
                     {
                         AppUser = existingUser,

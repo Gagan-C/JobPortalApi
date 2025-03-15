@@ -24,7 +24,7 @@
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </EditForm>
-        <JobPost.WebApp.Components.Shared.ErrorBannerForResponse responseCode="responseCode" />
+        <ErrorBannerForResponse responseCode=@responseCode />
     </div>
 </div>
 
@@ -35,8 +35,8 @@
     }
 </style>
 @code {
-    private LoginModel loginModel = new LoginModel();
-    private int responseCode ;
+    private readonly LoginModel loginModel = new LoginModel();
+    int responseCode;
 
 
     private  async Task HandleValidSubmit()

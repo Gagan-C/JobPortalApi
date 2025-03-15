@@ -20,7 +20,7 @@ namespace Jobpost.API.Controllers
         [Route("/api/[controller]/Employer")]
         public async Task<IActionResult> OnboardEmployerAsync([FromBody] EmployerOnboardingDTO employerOnboardingDTO)
         {
-            _logger.LogInformation("Initiated onboarding for user at "+DateTime.Now);
+            _logger.LogInformation("Initiated onboarding for user at {Now}",DateTime.Now);
 
             var result = await _onboardingService.OnboardEmployerAsync(employerOnboardingDTO);
 

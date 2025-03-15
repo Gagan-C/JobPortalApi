@@ -28,7 +28,7 @@ namespace JobPost.API.Database
 
                 if (!result.Succeeded)
                 {
-                    throw new Exception(result.Errors.First().Description);
+                    throw new InvalidOperationException(result.Errors.First().Description);
                 }
 
                 if (logger.IsEnabled(LogLevel.Debug))

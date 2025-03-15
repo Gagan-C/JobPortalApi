@@ -55,7 +55,7 @@
 <ErrorBannerForResponse responseCode=@responseCode />
 </div>
 @code {
-    private readonly OnboardingDTO onboardingEmployer = new OnboardingDTO();
+    private readonly OnboardingDto onboardingEmployer = new OnboardingDto();
     private int responseCode;
     public async Task HandleOnboardingPost()
     {
@@ -64,7 +64,7 @@
         responseCode = (int)response.StatusCode;
         Console.WriteLine(responsebody);
     }
-    class OnboardingDTO
+    class OnboardingDto
     {
         
         public string? EmployerFirstName { get; set; }

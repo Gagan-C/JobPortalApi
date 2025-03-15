@@ -23,7 +23,7 @@ namespace Jobpost.API.Database
                 u.CompanyAddress != null && u.CompanyAddress.Equals(employerOnboardingDTO.CompanyAddress));
             if (existingCompany != null)
             {
-                _logger.LogDebug($"There is a existing company {existingCompany.CompanyName}");
+                _logger.LogDebug($"Found existing company");
             }
             else
             {

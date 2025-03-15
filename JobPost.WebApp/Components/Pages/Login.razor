@@ -1,0 +1,54 @@
+﻿@page "/login"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Forms
+@inject  JobApiClient jhttp
+
+<div class="container" id="login-container">
+    <div class="card shadow rounded p-5">
+        <h2 class="text-center mb-4">Login</h2>
+        <EditForm Model="@loginModel" OnValidSubmit="@HandleValidSubmit" FormName="LoginForm">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email</label>
+                <InputText id="Email" class="form-control" @bind-Value="loginModel.Email" />
+            </div>
+
+            <div class="mb-3">
+                <label for="Password" class="form-label">Password</label>
+                <InputText id="Password" type="password" class="form-control" @bind-Value="loginModel.Password" />
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </EditForm>
+        <ErrorBannerForResponse responseCode=@responseCode />
+    </div>
+</div>
+
+<style>
+    #login-container {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+@code {
+    private readonly LoginModel loginModel = new LoginModel();
+    private int responseCode;
+
+    private  async Task HandleValidSubmit()
+    {
+        var response = await jhttp.PostLogin(loginModel);
+        string responseBody = await response.Content.ReadAsStringAsync();
+        responseCode = (int)response.StatusCode;
+        Console.WriteLine(responseBody);
+    }
+
+    public class LoginModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+}

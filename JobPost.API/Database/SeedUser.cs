@@ -1,5 +1,4 @@
-﻿using Jobpost.API.Database;
-using Jobpost.API.Model;
+﻿using Jobpost.API.Model;
 using Microsoft.AspNetCore.Identity;
 
 namespace JobPost.API.Database

@@ -4,6 +4,8 @@ using Jobpost.API.Database;
 using Microsoft.AspNetCore.Identity;
 using Jobpost.API.Model;
 using JobPost.API.Database;
+using Microsoft.AspNetCore.Authorization;
+using JobPost.API.Services.AuthService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +19,7 @@ builder.Services.AddAuthentication(options =>
 })
 .AddCookie(IdentityConstants.ApplicationScheme, options =>
 {
-    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SameSite = SameSiteMode.Lax;
 })
 .AddBearerToken(IdentityConstants.BearerScheme);
 
@@ -33,7 +35,10 @@ builder.AddSqlServerDbContext<AppDbContext>("jobdb");
 
 builder.Services.AddControllers();
 builder.Services.AddIdentityCore<User>()
-    .AddEntityFrameworkStores<AppDbContext>().AddApiEndpoints();
+    .AddRoles<IdentityRole>() 
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders()
+    .AddSignInManager();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -51,6 +56,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IOnboardingService, OnboardingService>();
 builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 builder.Services.AddServiceDiscovery(); 
@@ -60,7 +67,7 @@ builder.Services.AddServiceDiscovery();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
-    await SeedUser.SeedAsync(scope.ServiceProvider);
+    await SeedData.SeedAsync(scope.ServiceProvider);
 }
 
 app.UseOutputCache();
@@ -82,7 +89,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
-app.MapIdentityApi<User>();
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

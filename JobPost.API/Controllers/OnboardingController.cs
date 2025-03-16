@@ -16,7 +16,7 @@ namespace Jobpost.API.Controllers
             _logger = logger;
         }
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         [Route("/api/[controller]/Employer")]
         public async Task<IActionResult> OnboardEmployerAsync([FromBody] EmployerOnboardingDTO employerOnboardingDTO)
         {

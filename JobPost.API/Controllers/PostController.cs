@@ -22,7 +22,7 @@ namespace Jobpost.API.Controllers
             return Ok(_postService.GetPostValue());
         }
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin, Employer")]
         public IActionResult PostJob([FromBody] PostJobDTO postJobDTO)
         {
             var result = _postService.PostJob(postJobDTO);

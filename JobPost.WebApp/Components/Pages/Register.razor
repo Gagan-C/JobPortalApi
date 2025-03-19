@@ -1,0 +1,44 @@
+﻿@page "/register"
+@rendermode InteractiveServer
+@inject JobApiClient Http
+
+<h3>Register</h3>
+
+<div class="container form-control">
+    <EditForm FormName="Register Form" Model="@registerViewModel" OnValidSubmit="@HandleUserRegistration">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="row">
+            <div class="col m-2">
+                <label for="Email">Email</label>
+                <InputText id="Email" typeof="email" @bind-Value="registerViewModel.Email" ></InputText>
+            </div>
+            <div class="col m-2">
+                <label for="Password">Password</label>
+                <InputText id="Password" type="password" @bind-Value="registerViewModel.Password"></InputText>
+            </div>
+        </div>
+        <button class="btn btn-primary m-1" type="submit">Submit</button>
+    </EditForm>
+    <ErrorBannerForResponse responseCode=@responseCode />
+</div>
+
+@code {
+    private readonly RegisterViewModel registerViewModel = new RegisterViewModel();
+    private int responseCode;
+    public class RegisterViewModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+    public async Task HandleUserRegistration()
+    {
+        Console.WriteLine($"email: {registerViewModel.Email}");
+        var response = await Http.PostUserRegistration(registerViewModel);
+        string responseBody = await response.Content.ReadAsStringAsync();
+        responseCode = (int)response.StatusCode;
+        Console.WriteLine(responseBody);
+    }
+
+}

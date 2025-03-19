@@ -2,6 +2,7 @@
 using Jobpost.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace Jobpost.API.Controllers
 {
@@ -15,6 +16,7 @@ namespace Jobpost.API.Controllers
         }
         [HttpGet]
         [Authorize]
+        [OutputCache(Duration =60)]
         public IActionResult GetPost()
         {
             return Ok(_postService.GetPostValue());

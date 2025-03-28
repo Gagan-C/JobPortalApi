@@ -22,11 +22,6 @@ builder.Services.AddAuthentication(options =>
 .AddBearerToken(IdentityConstants.BearerScheme);
 
 
-//Service defaults for Aspire
-
-builder.AddServiceDefaults();
-
-builder.AddRedisOutputCache("redis");
 
 //Database context
 builder.AddSqlServerDbContext<AppDbContext>("jobdb");
@@ -53,10 +48,6 @@ builder.Services.AddScoped<IOnboardingService, OnboardingService>();
 builder.Services.AddScoped<IPostService, PostService>();
 
 
-builder.Services.AddServiceDiscovery(); 
-
-
-
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
@@ -65,14 +56,6 @@ using (var scope = app.Services.CreateScope())
 
 app.UseOutputCache();
 
-app.MapDefaultEndpoints();
-
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -85,4 +68,4 @@ app.UseAuthorization();
 app.MapIdentityApi<User>();
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

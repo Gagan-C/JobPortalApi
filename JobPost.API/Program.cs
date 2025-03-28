@@ -3,6 +3,7 @@
 using Jobpost.API.Database;
 using Microsoft.AspNetCore.Identity;
 using Jobpost.API.Model;
+using JobPost.API.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.AddAuthentication(options =>
 //Service defaults for Aspire
 
 builder.AddServiceDefaults();
+
+builder.AddRedisOutputCache("redis");
 
 //Database context
 builder.AddSqlServerDbContext<AppDbContext>("jobdb");
@@ -50,7 +53,19 @@ builder.Services.AddScoped<IOnboardingService, OnboardingService>();
 builder.Services.AddScoped<IPostService, PostService>();
 
 
+builder.Services.AddServiceDiscovery(); 
+
+
+
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    await SeedUser.SeedAsync(scope.ServiceProvider);
+}
+
+app.UseOutputCache();
+
+app.MapDefaultEndpoints();
 
 
 // Configure the HTTP request pipeline.

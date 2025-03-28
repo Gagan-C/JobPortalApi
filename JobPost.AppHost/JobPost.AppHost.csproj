@@ -13,12 +13,14 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.1.0" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="9.1.0" />
     <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\JobPost.API\JobPost.API.csproj" />
     <ProjectReference Include="..\JobPost.ServiceDefaults\JobPost.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\JobPost.WebApp\JobPost.WebApp.csproj" />
   </ItemGroup>
 
 
